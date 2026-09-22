@@ -1,65 +1,27 @@
-# Simulador de Aposentadoria — 3 calculadoras
+# Simulador de Aposentadoria
 
-Simulador educacional de aposentadoria com juros compostos reais. Sem dependências e sem build: é só abrir o `index.html`.
+Três calculadoras simples para planejar a aposentadoria com juros compostos.
 
-## O que ele calcula
+## As calculadoras
 
-| # | Pergunta | Entradas | Fórmula |
-|---|----------|----------|---------|
-| 1 | Quanto vou ter quando me aposentar? | valor inicial (opcional), aporte mensal, anos | `FV = PV×(1+i)^n + PMT × [((1+i)^n − 1) / i]` |
-| 2 | Quanto preciso poupar por mês? | valor inicial (opcional), patrimônio desejado, anos | `PMT = (FV − PV×(1+i)^n) × i / ((1+i)^n − 1)` |
-| 3A | Quanto posso gastar vivendo só dos juros? | patrimônio | `saque = P × i` |
-| 3B | Quanto posso gastar zerando o patrimônio? | patrimônio, anos | `saque = P × [i(1+i)^n / ((1+i)^n − 1)]` |
+1. **Quanto vou ter?** Mostra quanto você acumula poupando um valor por mês.
+2. **Quanto preciso poupar?** Mostra quanto guardar por mês para chegar a uma meta.
+3. **Quanto posso gastar?** Mostra quanto dá para gastar por mês depois de aposentado, vivendo só dos juros ou usando todo o patrimônio ao longo dos anos.
 
-- `i` = taxa de juros **reais** por mês (padrão 0,5% a.m. = 0,005, equivalente a 6,1678% a.a.)
-- `n` = número de meses (anos × 12)
-- `PV` = valor que a pessoa já tem hoje (padrão 0, quando o campo fica em branco)
-- Aportes e saques no fim de cada mês (série postecipada)
-- Na calculadora 2, se o `PV` sozinho já supera a meta, `PMT` fica em 0 (a calculadora nunca pede aporte negativo)
+A taxa padrão é de 0,5% ao mês acima da inflação (cerca de 6,17% ao ano). Você pode mudar a taxa no topo da página.
 
-A taxa é editável no topo da página, caso o professor queira comparar cenários.
+## Como usar
 
-## Conferência dos resultados
+Abra o arquivo `index.html` no navegador. O simulador não precisa de instalação nem de internet.
 
-| Cenário | Resultado |
-|---------|-----------|
-| R$ 1.000/mês por 30 anos | R$ 1.004.515,04 |
-| R$ 1.000.000 em 30 anos | R$ 995,51/mês |
-| R$ 500.000 vivendo dos juros | R$ 2.500,00/mês |
-| R$ 500.000 por 25 anos | R$ 3.221,51/mês |
-
-## Como publicar no GitHub Pages
-
-1. Suba a pasta inteira (`index.html`, `frontend/`, `backend/`, `README.md`) na raiz do repositório.
-2. Repositório → **Settings** → **Pages**.
-3. Em *Source*, escolha **Deploy from a branch** → branch `main` → pasta `/ (root)` → **Save**.
-4. Em cerca de 1 minuto o site fica no ar em `https://SEU-USUARIO.github.io/NOME-DO-REPO/`.
-
-## Estrutura de arquivos
+## Estrutura
 
 ```
-index.html              shell HTML (marcação das 3 calculadoras)
-frontend/
-  css/styles.css         todo o estilo visual
-  js/format.js           formatação de número/moeda e parsing de input
-  js/chart.js            desenho do gráfico SVG e tooltip
-  js/app.js              validação de formulário, eventos, abas, tema — liga tudo à página
-backend/
-  js/finance.js          funções puras de matemática financeira (sem DOM)
+index.html        página principal
+frontend/         visual (CSS), imagens e scripts da tela
+backend/          cálculos financeiros
 ```
-
-`finance.js` não depende de nada — pode ser reaproveitado em Node ou em outro front-end.
-Os scripts são carregados em ordem (`finance.js` → `format.js` → `chart.js` → `app.js`) como globais simples (`Finance`, `Format`, `Chart`), sem bundler.
-
-## Detalhes técnicos
-
-- HTML + CSS + JavaScript puro, sem build nem framework.
-- Gráficos em SVG gerados na hora, sem biblioteca externa.
-- Entrada aceita formato brasileiro (`1.500,50`) e também `1500.50`.
-- Validação de campos, mensagens de erro com `role="alert"`, navegação por teclado nas abas.
-- Tema claro/escuro (segue o sistema e memoriza a escolha).
-- Responsivo de 320px até desktop; respeita `prefers-reduced-motion`.
 
 ## Aviso
 
-Os valores estão em poder de compra de hoje, porque a taxa usada é real (já descontada a inflação). É um modelo de estudo, não é recomendação de investimento.
+Os valores estão no poder de compra de hoje, porque a taxa já desconta a inflação. É uma ferramenta de estudo, não uma recomendação de investimento.

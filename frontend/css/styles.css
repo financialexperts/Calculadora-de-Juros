@@ -64,6 +64,8 @@ body{
 h1,h2,h3{font-family:var(--ff-display);font-weight:700;letter-spacing:-.02em;margin:0}
 p{margin:0}
 button{font:inherit;color:inherit}
+/* telas e caixas com display próprio (grid/flex) também precisam sumir com [hidden] */
+[hidden]{display:none!important}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:6px}
 
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
@@ -112,6 +114,16 @@ button{font:inherit;color:inherit}
 [data-theme="dark"] .icon-moon{opacity:0;transform:translate(-50%,-50%) rotate(-100deg) scale(.4)}
 [data-theme="light"] .icon-sun{opacity:0;transform:translate(-50%,-50%) rotate(100deg) scale(.4)}
 
+.userbox{display:flex;align-items:center;gap:10px;margin-right:2px}
+.userbox__email{font-size:13px;color:var(--ink-soft);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------- Loading / setup ---------- */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:120px 0;color:var(--muted);font-size:14px}
+.spinner{width:28px;height:28px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--accent-ink);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.setup-card{max-width:560px;margin:60px auto;padding:24px}
+.setup-card code{background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-family:var(--ff-mono);font-size:.92em}
+
 /* ---------- Hero ---------- */
 .hero{padding:44px 0 26px}
 .hero h1{font-size:clamp(30px,6.2vw,50px);line-height:1.04;max-width:15ch}
@@ -138,6 +150,14 @@ button{font:inherit;color:inherit}
 .tab__t{font-family:var(--ff-display);font-weight:600;font-size:14.5px;letter-spacing:-.01em;display:block;line-height:1.25}
 .tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast);transform:translateY(-1px)}
 .tab[aria-selected="true"] .tab__n{color:color-mix(in srgb,var(--accent-contrast) 68%,transparent)}
+.tabs--2{grid-template-columns:repeat(2,1fr)}
+
+/* ---------- Auth ---------- */
+.auth{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:40px;align-items:center;padding:36px 0 60px;min-height:calc(100vh - 200px)}
+.auth__intro h1{font-size:clamp(28px,4.4vw,42px);line-height:1.08;max-width:14ch}
+.auth__intro p{margin-top:16px;max-width:44ch;color:var(--ink-soft);font-size:15.5px}
+.auth__card{padding-bottom:6px}
+.auth__card .tabs{margin:0;border-top:0;padding-top:18px;padding-left:18px;padding-right:18px}
 
 /* ---------- Panels ---------- */
 .panel[hidden]{display:none}
@@ -162,6 +182,17 @@ button{font:inherit;color:inherit}
 .input input{flex:1;min-width:0;border:0;background:transparent;padding:13px 0;font-family:var(--ff-mono);font-size:16px;font-weight:500;color:var(--ink);text-align:right}
 .input input:focus{outline:none}
 .input input::placeholder{color:var(--muted);opacity:.6}
+.input input[type="email"],.input input[type="password"],#signup-name{font-family:var(--ff-body);font-weight:400;text-align:left}
+/* remove o destaque azul/amarelo que o navegador aplica em campos preenchidos automaticamente (login salvo) */
+.input input:-webkit-autofill,
+.input input:-webkit-autofill:hover,
+.input input:-webkit-autofill:focus{
+  -webkit-text-fill-color:var(--ink);
+  caret-color:var(--ink);
+  -webkit-box-shadow:0 0 0 1000px var(--surface-2) inset;
+  box-shadow:0 0 0 1000px var(--surface-2) inset;
+  transition:background-color 9999s ease-in-out 0s;
+}
 .error{display:none;align-items:center;gap:5px;color:var(--danger);font-size:12.5px;margin-top:6px}
 .error.is-on{display:flex}
 .error::before{content:"⚠";font-size:11px}
@@ -173,6 +204,13 @@ button{font:inherit;color:inherit}
 .btn--primary{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast)}
 .btn--primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
 .btn--ghost:hover{border-color:var(--line-strong);background:var(--surface-2)}
+.btn--primary:disabled{opacity:.6;cursor:default}
+.btn--sm{flex:none;padding:8px 12px;font-size:13px;border-radius:9px}
+.actions--1{border-top:0;padding-top:4px;margin-top:20px}
+.ok{display:none;align-items:center;gap:5px;color:var(--accent-ink);font-size:12.5px;margin-top:6px;line-height:1.5}
+.ok.is-on{display:flex}
+.ok::before{content:"✓";font-size:11px}
+.linklike{display:block;margin:14px auto 0;background:none;border:0;padding:2px;color:var(--accent-ink);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 
 /* ---------- Answer ---------- */
 .answer{padding:20px}
@@ -227,6 +265,10 @@ footer a:hover{border-bottom-color:var(--accent-ink)}
 
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
+  .auth{grid-template-columns:1fr;gap:26px;padding-top:20px;min-height:0}
+  .auth__intro{text-align:center}
+  .auth__intro h1{margin-left:auto;margin-right:auto}
+  .auth__intro p{margin-left:auto;margin-right:auto}
   .grid{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr;}
   .stat{padding:12px 16px}
@@ -237,6 +279,11 @@ footer a:hover{border-bottom-color:var(--accent-ink)}
   .tabs{grid-template-columns:1fr;gap:7px;margin-top:20px;padding-top:18px}
   .tab{padding:11px 14px;display:flex;align-items:baseline;gap:9px}
   .tab__n{margin-bottom:0}
+  .tabs--2{grid-template-columns:repeat(2,1fr)}
+  .auth__card .tabs{margin-top:0;padding-top:18px}
+  .auth{padding:32px 0}
+  .auth__intro h1{max-width:none}
+  .userbox__email{display:none}
   .split{grid-template-columns:1fr}
   .topbar__in{min-height:56px;gap:8px}
   .brand__name,.brand__sep{display:none}

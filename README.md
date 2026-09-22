@@ -12,14 +12,28 @@ A taxa padrão é de 0,5% ao mês acima da inflação (cerca de 6,17% ao ano). V
 
 ## Como usar
 
-Abra o arquivo `index.html` no navegador. O simulador não precisa de instalação nem de internet.
+Abra o arquivo `index.html` no navegador, entre com seu e-mail e senha (ou crie uma conta) e use as calculadoras. Não precisa de instalação, mas precisa de internet para o login.
+
+## Login
+
+O login é o mesmo do **Fluxo de Caixa**: os dois sistemas usam o mesmo projeto Supabase, então quem já tem conta em um entra no outro com o mesmo e-mail e senha. A tela tem entrar, criar conta, esqueci a senha e definir nova senha (pelo link do e-mail).
+
+A calculadora só usa o login — os cálculos não são salvos no banco. Ao criar conta, o nome vai para a tabela `profiles` (a mesma do Fluxo de Caixa).
+
+Para o link de "esqueci a senha" voltar para a calculadora, o endereço onde ela está publicada precisa estar em **Supabase → Authentication → URL Configuration → Redirect URLs**.
 
 ## Estrutura
 
 ```
-index.html        página principal
-frontend/         visual (CSS), imagens e scripts da tela
-backend/          cálculos financeiros
+index.html                  página principal: carregando, login e as calculadoras
+frontend/
+  css/styles.css            visual
+  js/config.js              URL e chave do Supabase (mesmo projeto do Fluxo de Caixa)
+  js/supabaseClient.js      inicializa o cliente Supabase
+  js/auth.js                tela de entrar / criar conta / esqueci a senha
+  js/session.js             mostra login ou calculadora conforme a sessão
+  js/app.js                 as três calculadoras, abas e tema
+backend/                    cálculos financeiros
 ```
 
 ## Aviso

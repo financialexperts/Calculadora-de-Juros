@@ -272,7 +272,7 @@
     });
   });
 
-  document.querySelectorAll(".chip").forEach(function (chip) {
+  document.querySelectorAll("#view-calc .chip").forEach(function (chip) {
     chip.addEventListener("click", function () {
       var target = document.getElementById(chip.getAttribute("data-fill"));
       if (!target) return;
@@ -283,7 +283,7 @@
     });
   });
 
-  document.querySelectorAll("form").forEach(function (form) {
+  document.querySelectorAll("#view-calc form").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var fn = calcs[form.id];
@@ -314,7 +314,7 @@
   });
 
   /* ============ abas ============ */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('#view-calc [role="tab"]'));
   function selectTab(tab) {
     tabs.forEach(function (t) {
       var on = t === tab;

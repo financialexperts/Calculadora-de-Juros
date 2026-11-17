@@ -199,7 +199,7 @@ button{font:inherit;color:inherit}
   box-shadow:0 0 0 1000px var(--surface-2) inset;
   transition:background-color 9999s ease-in-out 0s;
 }
-.error{display:none;align-items:center;gap:5px;color:var(--danger);font-size:12.5px;margin-top:6px}
+.error{display:none;align-items:center;gap:5px;color:var(--danger);font-size:12.5px;margin-top:6px;overflow-wrap:anywhere}
 .error.is-on{display:flex}
 .error::before{content:"⚠";font-size:11px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
